@@ -7,6 +7,11 @@ import Order, { IOrder } from "@/models/Order";
 import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
+  console.log("ENV CHECK →", {
+    user: process.env.GMAIL_USER,
+    passLength: process.env.GMAIL_APP_PASSWORD?.length,
+    passValue: JSON.stringify(process.env.GMAIL_APP_PASSWORD),
+  });
   const body = await req.text();
   const signature = (await headers()).get("Stripe-Signature")!;
 
@@ -29,7 +34,7 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const { orderId } = session.metadata || {};
     
-    // ইউজার স্ট্রাইপ পেজে যে ইমেইল দিবে তা এখান থেকে পাওয়া যাবে
+   
     const userEmail = session.customer_details?.email;
 
     if (!orderId) {
@@ -42,27 +47,31 @@ export async function POST(req: NextRequest) {
       const order = (await Order.findById(orderId)) as IOrder;
 
       if (order && order.status !== "PAID") {
-        // ১. ডাটাবেস আপডেট
+        // database update
         order.status = "PAID";
-        order.customerEmail = userEmail || ""; // স্ট্রাইপ থেকে পাওয়া ইমেইল সেভ করা
+        order.customerEmail = userEmail || ""; // save email get from stripe
         await order.save();
         console.log(`💰 Order ${orderId} marked as PAID for ${userEmail}`);
 
-        // ২. ইমেইল পাঠানো (যেকোনো ইমেইলে যাবে)
+        // send mail part
         if (userEmail) {
           const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
-            secure: true, // SSL ব্যবহার করা হচ্ছে
+            secure: true, // SSL 
             auth: {
               user: process.env.GMAIL_USER,
               pass: process.env.GMAIL_APP_PASSWORD,
             },
           });
 
+          await transporter.verify();
+  console.log("✅ SMTP Connected");
+
+
           await transporter.sendMail({
             from: `"Dra Soft" <${process.env.GMAIL_USER}>`,
-            to: userEmail, // ইউজার যে ইমেইল দিবে সেখানেই যাবে
+            to: userEmail, // any email given by user
             subject: "Booking Confirmed - Dra Soft",
             html: `
               <div style="font-family: Arial, sans-serif; padding: 20px;">
