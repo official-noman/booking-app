@@ -22,7 +22,7 @@ function shortenId(id: string) { return `#${id.slice(-6).toUpperCase()}`; }
 function Toast({ msg, type }: { msg: string; type: "success" | "error" }) {
   return (
     <div className={`fixed top-5 right-5 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl border text-sm font-medium
-      ${type === "success" ? "bg-[#0f1117] border-emerald-500/30 text-emerald-400" : "bg-[#0f1117] border-red-500/30 text-red-400"}`}>
+      ${type === "success" ? "bg-white border-emerald-300 text-emerald-600" : "bg-white border-red-200 text-red-600"}`}>
       {type === "success" ? <CheckCircle2 className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
       {msg}
     </div>
@@ -36,29 +36,29 @@ function DeleteModal({ order, onConfirm, onCancel, isDeleting }: {
   const email = order.customerEmail || order.email || "N/A";
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onCancel} />
-      <div className="relative bg-[#0f1117] border border-white/10 rounded-2xl shadow-2xl w-full max-w-md p-6">
+      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onCancel} />
+      <div className="relative bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-md p-6">
         <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
-            <AlertTriangle className="w-5 h-5 text-red-400" />
+          <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center flex-shrink-0">
+            <AlertTriangle className="w-5 h-5 text-red-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-base font-semibold text-white mb-1">Delete this booking?</h3>
-            <p className="text-sm text-slate-400 mb-1">
-              Order <span className="font-mono font-bold text-white">{shortenId(order._id)}</span>{" "}
-              for <span className="text-slate-300">{email}</span> will be permanently removed.
+            <h3 className="text-base font-semibold text-slate-800 mb-1">Delete this booking?</h3>
+            <p className="text-sm text-slate-500 mb-1">
+              Order <span className="font-mono font-bold text-slate-800">{shortenId(order._id)}</span>{" "}
+              for <span className="text-slate-500">{email}</span> will be permanently removed.
             </p>
-            <p className="text-xs text-red-400 font-medium mt-2">This action cannot be undone.</p>
+            <p className="text-xs text-red-600 font-medium mt-2">This action cannot be undone.</p>
           </div>
-          <button onClick={onCancel} className="text-slate-600 hover:text-slate-400 transition-colors"><X className="w-4 h-4" /></button>
+          <button onClick={onCancel} className="text-slate-500 hover:text-slate-500 transition-colors"><X className="w-4 h-4" /></button>
         </div>
         <div className="flex gap-3 mt-6">
           <button onClick={onCancel} disabled={isDeleting}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-white/10 text-slate-400 text-sm font-medium hover:bg-white/5 transition-colors disabled:opacity-50">
+            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-sm font-medium hover:bg-slate-100 transition-colors disabled:opacity-50">
             Cancel
           </button>
           <button onClick={onConfirm} disabled={isDeleting}
-            className="flex-1 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+            className="flex-1 px-4 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium hover:bg-red-100 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
             {isDeleting ? <><Loader2 className="w-4 h-4 animate-spin" />Deleting…</> : <><Trash2 className="w-4 h-4" />Delete</>}
           </button>
         </div>
@@ -82,24 +82,24 @@ function EditModal({ order, onSave, onCancel, isSaving }: {
     onSave({ customerEmail: email, serviceId, amount: Math.round(parsed * 100), status });
   };
 
-  const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 transition-all";
+  const inputCls = "w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-300 focus:ring-1 focus:ring-indigo-200 transition-all";
   const labelCls = "block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onCancel} />
-      <div className="relative bg-[#0f1117] border border-white/10 rounded-2xl shadow-2xl w-full max-w-lg p-6">
+      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={onCancel} />
+      <div className="relative bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-              <Pencil className="w-4 h-4 text-indigo-400" />
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center">
+              <Pencil className="w-4 h-4 text-indigo-600" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-white">Edit Booking</h3>
+              <h3 className="text-base font-semibold text-slate-800">Edit Booking</h3>
               <p className="text-xs text-slate-500 font-mono">{shortenId(order._id)}</p>
             </div>
           </div>
-          <button onClick={onCancel} className="text-slate-600 hover:text-slate-400 transition-colors"><X className="w-4 h-4" /></button>
+          <button onClick={onCancel} className="text-slate-500 hover:text-slate-500 transition-colors"><X className="w-4 h-4" /></button>
         </div>
 
         <div className="space-y-4">
@@ -122,9 +122,9 @@ function EditModal({ order, onSave, onCancel, isSaving }: {
             <div>
               <label className={labelCls}>Status</label>
               <select value={status} onChange={(e) => setStatus(e.target.value)} className={`${inputCls} cursor-pointer`}>
-                <option value="PENDING" className="bg-[#0f1117]">PENDING</option>
-                <option value="PAID" className="bg-[#0f1117]">PAID</option>
-                <option value="FAILED" className="bg-[#0f1117]">FAILED</option>
+                <option value="PENDING" className="bg-white">PENDING</option>
+                <option value="PAID" className="bg-white">PAID</option>
+                <option value="FAILED" className="bg-white">FAILED</option>
               </select>
             </div>
           </div>
@@ -132,7 +132,7 @@ function EditModal({ order, onSave, onCancel, isSaving }: {
 
         <div className="flex gap-3 mt-6">
           <button onClick={onCancel} disabled={isSaving}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-white/10 text-slate-400 text-sm font-medium hover:bg-white/5 transition-colors disabled:opacity-50">
+            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-500 text-sm font-medium hover:bg-slate-100 transition-colors disabled:opacity-50">
             Cancel
           </button>
           <button onClick={handleSave} disabled={isSaving}
@@ -150,16 +150,16 @@ function StatCard({ label, value, sub, icon: Icon, color, delay }: {
   label: string; value: string | number; sub: string; icon: React.ElementType; color: string; delay: number;
 }) {
   return (
-    <div className="relative bg-[#0f1117] border border-white/8 rounded-2xl p-5 overflow-hidden group hover:border-white/15 transition-all duration-300"
+    <div className="relative bg-white border border-slate-200 rounded-2xl p-5 overflow-hidden group hover:border-white/15 transition-all duration-300"
       style={{ animation: "fadeUp 0.5s ease forwards", animationDelay: `${delay}ms`, opacity: 0 }}>
-      <div className={`absolute -top-8 -right-8 w-28 h-28 rounded-full blur-3xl opacity-15 group-hover:opacity-25 transition-opacity ${color}`} />
+      <div className={`absolute -top-8 -right-8 w-28 h-28 rounded-full blur-3xl opacity-20 group-hover:opacity-25 transition-opacity ${color}`} />
       <div className="relative">
-        <div className={`inline-flex p-2.5 rounded-xl mb-4 ${color} bg-opacity-10 border border-white/8`}>
-          <Icon className="w-4 h-4 text-white" />
+        <div className={`inline-flex p-2.5 rounded-xl mb-4 ${color} bg-opacity-10 border border-slate-200`}>
+          <Icon className="w-4 h-4 text-slate-800" />
         </div>
-        <p className="text-[26px] font-bold text-white tracking-tight leading-none mb-2">{value}</p>
-        <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-[0.15em] mb-1">{label}</p>
-        <p className="text-xs text-slate-700">{sub}</p>
+        <p className="text-[26px] font-bold text-slate-800 tracking-tight leading-none mb-2">{value}</p>
+        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-[0.15em] mb-1">{label}</p>
+        <p className="text-xs text-slate-400">{sub}</p>
       </div>
     </div>
   );
@@ -168,17 +168,17 @@ function StatCard({ label, value, sub, icon: Icon, color, delay }: {
 // ── Status Badge ──────────────────────────────────────────────────────────────
 function StatusBadge({ status }: { status: string }) {
   if (status === "PAID") return (
-    <span className="inline-flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
+    <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-200 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />Paid
     </span>
   );
   if (status === "PENDING") return (
-    <span className="inline-flex items-center gap-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
+    <span className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 border border-amber-200 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
       <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />Pending
     </span>
   );
   return (
-    <span className="inline-flex items-center gap-1.5 bg-red-500/10 text-red-400 border border-red-500/20 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
+    <span className="inline-flex items-center gap-1.5 bg-red-50 text-red-600 border border-red-200 text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
       <span className="w-1.5 h-1.5 rounded-full bg-red-500" />{status}
     </span>
   );
@@ -264,30 +264,30 @@ export default function AdminDashboardClient({ initialOrders }: { initialOrders:
   }, [filtered, showToast]);
 
   return (
-    <div className="min-h-screen bg-[#080a0f] text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-800">
       {toast && <Toast msg={toast.msg} type={toast.type} />}
       {deletingOrder && <DeleteModal order={deletingOrder} onConfirm={handleDelete} onCancel={() => setDeletingOrder(null)} isDeleting={isDeleting} />}
       {editingOrder && <EditModal order={editingOrder} onSave={handleSave} onCancel={() => setEditingOrder(null)} isSaving={isSaving} />}
 
       {/* Header */}
-      <header className="border-b border-white/8 bg-[#080a0f]/90 backdrop-blur-xl px-8 py-4 flex items-center justify-between sticky top-0 z-10">
+      <header className="border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm px-8 py-4 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <div className="relative w-9 h-9">
             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-600" />
-            <div className="absolute inset-[1.5px] rounded-[10px] bg-[#080a0f] flex items-center justify-center">
-              <Activity className="w-4 h-4 text-indigo-400" />
+            <div className="absolute inset-[1.5px] rounded-[10px] bg-white flex items-center justify-center">
+              <Activity className="w-4 h-4 text-indigo-600" />
             </div>
           </div>
           <div>
-            <p className="text-[10px] text-slate-600 uppercase tracking-[0.2em] font-semibold">Dra Soft</p>
-            <h1 className="text-white font-semibold text-sm leading-tight">Admin Panel</h1>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-semibold">Dra Soft</p>
+            <h1 className="text-slate-800 font-semibold text-sm leading-tight">Admin Panel</h1>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="hidden sm:flex items-center gap-2 text-xs text-slate-600 bg-white/4 border border-white/8 rounded-full px-3 py-1.5">
+          <span className="hidden sm:flex items-center gap-2 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5">
             <Clock className="w-3 h-3" />Real-time
           </span>
-          <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full font-semibold">
+          <span className="inline-flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />Live
           </span>
         </div>
@@ -295,8 +295,8 @@ export default function AdminDashboardClient({ initialOrders }: { initialOrders:
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
-          <h2 className="text-xl font-bold text-white tracking-tight">Overview</h2>
-          <p className="text-slate-600 text-sm mt-1">Monitor bookings, revenue, and manage orders</p>
+          <h2 className="text-xl font-bold text-slate-800 tracking-tight">Overview</h2>
+          <p className="text-slate-500 text-sm mt-1">Monitor bookings, revenue, and manage orders</p>
         </div>
 
         {/* Stats */}
@@ -305,28 +305,28 @@ export default function AdminDashboardClient({ initialOrders }: { initialOrders:
         </div>
 
         {/* Table */}
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
           {/* Toolbar */}
-          <div className="px-6 py-4 border-b border-white/8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-semibold text-white">All Orders</h3>
-              <p className="text-xs text-slate-600 mt-0.5">
+              <h3 className="text-sm font-semibold text-slate-800">All Orders</h3>
+              <p className="text-xs text-slate-500 mt-0.5">
                 {filtered.length === orders.length ? `${orders.length} records` : `${filtered.length} of ${orders.length} records`}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-600 pointer-events-none" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 pointer-events-none" />
                 <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search email or ID…"
-                  className="pl-8 pr-8 py-2 text-xs rounded-lg border border-white/8 bg-white/5 text-slate-300 placeholder-slate-700 focus:outline-none focus:border-indigo-500/40 focus:ring-1 focus:ring-indigo-500/20 w-48 transition-all" />
+                  className="pl-8 pr-8 py-2 text-xs rounded-lg border border-slate-200 bg-slate-100 text-slate-500 placeholder-slate-400 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100 w-48 transition-all" />
                 {search && (
-                  <button onClick={() => setSearch("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400">
+                  <button onClick={() => setSearch("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-500">
                     <X className="w-3 h-3" />
                   </button>
                 )}
               </div>
               <button onClick={exportCSV}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/8 bg-white/5 text-xs font-medium text-slate-400 hover:bg-white/10 hover:text-white transition-all">
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 bg-slate-100 text-xs font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-all">
                 <Download className="w-3.5 h-3.5" />Export
               </button>
             </div>
@@ -335,48 +335,48 @@ export default function AdminDashboardClient({ initialOrders }: { initialOrders:
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/5">
+                <tr className="border-b border-slate-100">
                   {["Order ID", "Customer", "Service", "Amount", "Status", "Date", "Actions"].map((h) => (
-                    <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold text-slate-600 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                    <th key={h} className="px-5 py-3 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {filtered.length === 0 ? (
                   <tr><td colSpan={7} className="px-6 py-16 text-center">
-                    <ShoppingCart className="w-8 h-8 mx-auto mb-3 text-slate-700" />
-                    <p className="text-slate-600 text-sm">{search ? "No results match your search." : "No orders yet."}</p>
+                    <ShoppingCart className="w-8 h-8 mx-auto mb-3 text-slate-400" />
+                    <p className="text-slate-500 text-sm">{search ? "No results match your search." : "No orders yet."}</p>
                   </td></tr>
                 ) : filtered.map((order, i) => {
                   const email = order.customerEmail || order.email || "N/A";
                   return (
                     <tr key={order._id}
-                      className="border-b border-white/4 hover:bg-white/3 transition-colors duration-100"
+                      className="border-b border-slate-100 hover:bg-slate-50/80 transition-colors duration-100"
                       style={{ animation: "fadeUp 0.3s ease forwards", animationDelay: `${i * 25}ms`, opacity: 0 }}>
                       <td className="px-5 py-3.5">
-                        <span className="font-mono text-xs font-bold text-slate-400 bg-white/5 px-2 py-1 rounded-md border border-white/8">{shortenId(order._id)}</span>
+                        <span className="font-mono text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-md border border-slate-200">{shortenId(order._id)}</span>
                       </td>
                       <td className="px-5 py-3.5">
-                        <span className={`text-xs ${email === "N/A" ? "text-slate-700 italic" : "text-slate-300"}`}>{email}</span>
+                        <span className={`text-xs ${email === "N/A" ? "text-slate-400 italic" : "text-slate-500"}`}>{email}</span>
                       </td>
                       <td className="px-5 py-3.5">
-                        <span className="text-xs text-slate-400 font-medium">{order.serviceId}</span>
+                        <span className="text-xs text-slate-500 font-medium">{order.serviceId}</span>
                       </td>
                       <td className="px-5 py-3.5">
-                        <span className="text-sm font-bold text-white">{formatCurrency(order.amount)}</span>
+                        <span className="text-sm font-bold text-slate-800">{formatCurrency(order.amount)}</span>
                       </td>
                       <td className="px-5 py-3.5"><StatusBadge status={order.status} /></td>
                       <td className="px-5 py-3.5">
-                        <span className="text-xs text-slate-600 whitespace-nowrap">{formatDate(order.createdAt)}</span>
+                        <span className="text-xs text-slate-500 whitespace-nowrap">{formatDate(order.createdAt)}</span>
                       </td>
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-2">
                           <button onClick={() => setEditingOrder(order)}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-indigo-400 border border-indigo-500/20 bg-indigo-500/10 hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all whitespace-nowrap">
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-indigo-600 border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 hover:border-indigo-300 transition-all whitespace-nowrap">
                             <Pencil className="w-3 h-3" />Edit
                           </button>
                           <button onClick={() => setDeletingOrder(order)}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-red-400 border border-red-500/20 bg-red-500/10 hover:bg-red-500/20 hover:border-red-500/40 transition-all whitespace-nowrap">
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-red-600 border border-red-200 bg-red-50 hover:bg-red-100 hover:border-red-300 transition-all whitespace-nowrap">
                             <Trash2 className="w-3 h-3" />Delete
                           </button>
                         </div>
@@ -389,11 +389,11 @@ export default function AdminDashboardClient({ initialOrders }: { initialOrders:
           </div>
 
           {filtered.length > 0 && (
-            <div className="px-6 py-3 border-t border-white/5 flex items-center justify-between">
-              <p className="text-xs text-slate-700">
+            <div className="px-6 py-3 border-t border-slate-100 flex items-center justify-between">
+              <p className="text-xs text-slate-400">
                 Showing <span className="text-slate-500 font-medium">{filtered.length}</span> of <span className="text-slate-500 font-medium">{orders.length}</span> orders
               </p>
-              <p className="text-xs text-slate-700 flex items-center gap-1.5"><Clock className="w-3 h-3" />Newest first</p>
+              <p className="text-xs text-slate-400 flex items-center gap-1.5"><Clock className="w-3 h-3" />Newest first</p>
             </div>
           )}
         </div>
