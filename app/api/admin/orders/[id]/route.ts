@@ -5,11 +5,12 @@ import Order from "@/models/Order";
 // DELETE /api/admin/orders/[id]
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await connectDB();
-    const deleted = await Order.findByIdAndDelete(params.id);
+    const deleted = await Order.findByIdAndDelete(id);
     if (!deleted) return NextResponse.json({ error: "Order not found" }, { status: 404 });
     return NextResponse.json({ success: true });
   } catch (err) {
@@ -21,13 +22,13 @@ export async function DELETE(
 // PATCH /api/admin/orders/[id]
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await connectDB();
     const body = await req.json();
 
-    // Only allow specific fields to be updated
     const allowed = ["customerEmail", "serviceId", "amount", "status"];
     const update: Record<string, unknown> = {};
     for (const key of allowed) {
@@ -35,7 +36,7 @@ export async function PATCH(
     }
 
     const updated = await Order.findByIdAndUpdate(
-      params.id,
+      id,
       { $set: update },
       { new: true, runValidators: true }
     );
