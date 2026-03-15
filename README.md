@@ -1,37 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dra Soft - Premium Service Booking Platform
 
-## Getting Started
+A professional, full-stack service booking application built for the **Dra Soft** developer assessment. This platform demonstrates a secure payment lifecycle, real-time database management, and an automated communication flow.
 
-First, run the development server:
+## 🚀 Deployment & Demo
+- **Live Website:** https://booking-app-smoky-six.vercel.app/
+- **Project Walkthrough Video:** 
+- **Admin Dashboard:** `https://booking-app-smoky-six.vercel.app//admin
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🌐 Client Experience
+- **Premium UI/UX:** High-end SaaS aesthetic built with **Tailwind CSS** and **Framer Motion** for smooth, interactive animations.
+- **Secure Checkout:** Integration with **Stripe-hosted Checkout** to ensure secure handling of sensitive payment information.
+- **Service Catalog:** Dynamic list of premium digital services with real-time specific button loading states.
+- **Instant Confirmation:** Automated email receipts sent via **Nodemailer (Gmail SMTP)** immediately after successful payment verification.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🛡️ Admin Management (Bonus Feature)
+- **Middleware Security:** The entire `/admin` route is protected via **Next.js Middleware** using HTTP Basic Auth.
+- **Real-time Analytics:** Dashboard overview featuring Total Revenue, Total Bookings, and Conversion Rates.
+- **Order Management:** Ability to view all incoming requests, search by customer email, and manage (delete) records.
+- **Data Portability:** Export all booking data to **CSV** format with a single click.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Technical Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Backend as Source of Truth:** Service pricing and details are resolved on the server-side to prevent client-side price manipulation.
+- **Webhook Integration:** Uses **Stripe Webhooks** to asynchronously handle payment events, ensuring the database is only updated upon verified success.
+- **Idempotency:** Logic implemented to prevent duplicate processing of the same payment event.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Tech Stack
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Database:** MongoDB with Mongoose ORM
+- **Payments:** Stripe API
+- **Email:** Nodemailer / Gmail SMTP
+- **Styling:** Tailwind CSS, Lucide Icons
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Local Setup Instructions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# booking-app" 
+1. **Clone the Project:**
+   ```bash
+   git clone https://github.com/your-username/repo-name.git
+   cd repo-name
