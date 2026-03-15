@@ -47,3 +47,40 @@ A professional, full-stack service booking application built for the **Dra Soft*
    ```bash
    git clone https://github.com/your-username/repo-name.git
    cd repo-name
+
+Install Dependencies:
+npm install
+
+Configure Environment Variables:
+Create a .env.local file in the root directory and add:
+
+# Stripe Keys
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+
+# Database
+MONGODB_URI=mongodb+srv://...
+
+# Email (Gmail SMTP)
+GMAIL_USER=your-email@gmail.com
+GMAIL_APP_PASSWORD=your-16-digit-app-password
+
+# Admin Credentials
+ADMIN_USER=admin
+ADMIN_PASS=drasoft123
+
+# Deployment URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+Run the App:
+npm run dev
+
+Listen for Webhooks (Local):
+stripe listen --forward-to localhost:3000/api/webhook
+
+👤 Admin Access (For Reviewers)
+To test the administrative features, use the following credentials:
+Username: admin
+Password: drasoft123
+
+Developed by Noman Mahmud for Dra Soft.
